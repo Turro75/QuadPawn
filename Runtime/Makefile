@@ -4,6 +4,7 @@
 # Name of the target application
 _NAME = PAWN
 APP = 4
+ADR = 0x08024000
 NAME = $(_NAME)$(APP)
 
 # Names of the object files (add all .c files you want to include)
@@ -60,19 +61,20 @@ LFLAGS += -nostartfiles -nostdlib -fwhole-program -Wl,-Map=build/$(NAME).map -eR
 VPATH = build
 _OBJS = $(addprefix build/,$(OBJS))
 
-all: $(NAME).HEX
+all: $(NAME).HEX 
 
 build_dir:
 	mkdir -p build
 
 clean:
-	$(RM) $(NAME).HEX build/*
+	$(RM) $(NAME)* build/*
 
 $(NAME).HEX: build/$(NAME).elf
 	$(CP) -O ihex $< build/temp.hex
 	head -n -1 build/temp.hex > $(NAME).HEX
-	$(CP) -O binary $< $(NAME).BIN
-#	cat alterbios/ALTBIOS.HEX >> $(NAME).HEX
+	$(CP) -O binary $< $(NAME)A.BIN
+	echo $(ADR) > $(NAME)A.ADR
+
 
 baselibc/libc.a: baselibc/Makefile
 	make -C baselibc

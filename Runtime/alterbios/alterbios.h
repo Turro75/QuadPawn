@@ -12,7 +12,7 @@ extern uint32_t alterbios_version_tag;
  */
 static int alterbios_check()
 {
-    if ((alterbios_version_tag & 0xFFFF0000) != 0x0A170000)
+    if ((alterbios_version_tag & 0xFFFF0000) != 0x17a10000)
         return -1;
     if ((alterbios_version_tag & 0x0000FFFF) < 36)
         return -2;
